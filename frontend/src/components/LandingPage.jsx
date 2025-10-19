@@ -3,25 +3,36 @@ import Confetti from 'react-confetti';
 import { useEffect, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
-export default function LandingPage() {
-  const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+// Accept props for the text and provide default values
+export default function LandingPage({
+  greeting = "Happy Birthday, [Name]!",
+  subheading = "A special day for a very special person"
+}) {
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
+  // Handle server-side rendering for window object
   useEffect(() => {
     const handleResize = () => {
       setWindowSize({ width: window.innerWidth, height: window.innerHeight });
     };
+    
+    // Set initial size
+    handleResize();
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
     <section className="h-screen w-full flex items-center justify-center bg-gradient-to-br from-pink-100 via-rose-100 to-purple-100 relative overflow-hidden">
-      <Confetti
-        width={windowSize.width}
-        height={windowSize.height}
-        recycle={true}
-        numberOfPieces={200}
-      />
+      {windowSize.width > 0 && (
+        <Confetti
+          width={windowSize.width}
+          height={windowSize.height}
+          recycle={true}
+          numberOfPieces={200}
+        />
+      )}
 
       <div className="text-center z-10 px-4">
         <motion.h1
@@ -30,7 +41,8 @@ export default function LandingPage() {
           transition={{ duration: 1, delay: 0.3 }}
           className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-purple-500 mb-6 sm:mb-8"
         >
-          Happy Birthday Rasme
+          {/* Use the greeting prop here */}
+          {greeting}
         </motion.h1>
 
         <motion.p
@@ -39,9 +51,11 @@ export default function LandingPage() {
           transition={{ duration: 1, delay: 0.8 }}
           className="text-lg sm:text-xl md:text-2xl text-gray-700 mb-8 sm:mb-12"
         >
-          A special day for the most special person
+          {/* Use the subheading prop here */}
+          {subheading}
         </motion.p>
 
+        {/* The rest of the animation and button logic remains the same */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}

@@ -12,11 +12,11 @@ import GiftBox from "./components/GiftBox";
 import Fireworks from "./components/Fireworks";
 
 function App() {
-  const [unlocked, setUnlocked] = useState(false);
+  // const [unlocked, setUnlocked] = useState(false);
 
-  if (!unlocked) {
-    return <BirthdayLogin onSuccess={() => setUnlocked(true)} />;
-  }
+  // if (!unlocked) {
+  //   return <BirthdayLogin onSuccess={() => setUnlocked(true)} />;
+  // }
 
   return (
     <div className="snap-y snap-mandatory h-screen overflow-y-scroll">

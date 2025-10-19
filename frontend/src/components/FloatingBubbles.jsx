@@ -1,12 +1,16 @@
 import { motion } from 'framer-motion';
 
-// A simple array of nicknames
-const bubbles = [
-  'Baby Girl','Rasme','Rasssss','Rasam','Mommyyyy','Smoking Hot','Sec c','Chikki Bikki', 'Cutie', 'Baby', 'Sunshine', 'Angel', 
-  'Sweetie', 'Beautiful', 'Princess', 'Darling', 'Caramel Pudding','Honey','Rasssmeeeweeee','small little baby girl','Venilla Biscoff','Wifeyyy'
+// A generic placeholder array for the template
+const placeholderItems = [
+  'Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6',
+  'Item 7', 'Item 8', 'Item 9', 'Item 10', 'Item 11', 'Item 12'
 ];
 
-export default function FloatingBubbles() {
+export default function FloatingBubbles({
+  title = "Floating Items",
+  subtitle = "Here are some items floating around in a fun and interactive way.",
+  items = placeholderItems
+}) {
   return (
     <section className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-pink-50 via-purple-50 to-rose-50 relative overflow-hidden py-12 sm:py-16">
       <div className="text-center z-10 px-4 sm:px-6 md:px-8 mb-12 sm:mb-16">
@@ -16,15 +20,15 @@ export default function FloatingBubbles() {
           viewport={{ once: true }}
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600"
         >
-          All My Names for You
+          {title}
         </motion.h2>
         <p className="text-base sm:text-lg md:text-xl text-gray-700 max-w-2xl mx-auto">
-          Here are just a few of the loving names I have for you, floating like my thoughts of you.
+          {subtitle}
         </p>
       </div>
 
       <div className="absolute inset-0">
-        {bubbles.map((nickname, index) => {
+        {items.map((item, index) => {
           // Random values for a dynamic layout
           const randomX = Math.random() * 80 + 10;
           const randomY = Math.random() * 80 + 10;
@@ -35,7 +39,7 @@ export default function FloatingBubbles() {
           return (
             <motion.div
               key={index}
-              className="absolute group" // Removed "cursor-pointer"
+              className="absolute group"
               style={{
                 left: `${randomX}%`,
                 top: `${randomY}%`,
@@ -46,7 +50,7 @@ export default function FloatingBubbles() {
               animate={{
                 scale: [0, 1, 1.1, 1],
                 opacity: [0, 0.8, 0.8, 0.8],
-                y: [0, -20, 0, -15, 0], // Creates a gentle bobbing motion
+                y: [0, -20, 0, -15, 0], // Gentle bobbing motion
               }}
               transition={{
                 duration: randomDuration,
@@ -61,7 +65,7 @@ export default function FloatingBubbles() {
                 <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-white/40 to-transparent" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-xs sm:text-sm md:text-base font-bold text-white drop-shadow-lg text-center px-2">
-                    {nickname}
+                    {item}
                   </span>
                 </div>
                 {/* Decorative sheen */}
@@ -72,8 +76,6 @@ export default function FloatingBubbles() {
           );
         })}
       </div>
-
-      {/* The entire AnimatePresence block for the modal has been removed */}
     </section>
   );
 }

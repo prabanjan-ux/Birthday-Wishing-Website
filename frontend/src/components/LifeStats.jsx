@@ -1,25 +1,22 @@
 import { motion } from 'framer-motion';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar, Clock, Heart, Eye, Bed, Music } from 'lucide-react';
 
-// --- Constants ---
-// Define constants outside the component to prevent re-declaration on every render.
-const BIRTH_DATE = new Date('2005-10-05T00:00:00');
-const AVG_HEART_RATE_BPM = 75; // Average beats per minute
-const AVG_BLINKS_PER_MINUTE_AWAKE = 17; // Average blinks per minute while awake
+const AVG_HEART_RATE_BPM = 75;
+const AVG_BLINKS_PER_MINUTE_AWAKE = 17;
 const HOURS_ASLEEP_PER_DAY = 8;
 const HOURS_AWAKE_PER_DAY = 16;
-const TAYLOR_SWIFT_SONGS_RELEASED = 235; // As of late 2024, includes all studio albums, re-records with vault tracks, and key singles.
+const AVG_HIT_SONGS_PER_YEAR = 15; // Approx. #1 hits on Billboard Hot 100
 
-// --- Helper Function for Calculations ---
-// A clean function to calculate all stats based on the current time.
-const calculateLifeStats = () => {
+const calculateLifeStats = (birthDate) => {
   const now = new Date();
-  const diffMs = now.getTime() - BIRTH_DATE.getTime();
+  const birthDateObj = new Date(birthDate);
+  const diffMs = now.getTime() - birthDateObj.getTime();
 
   const totalSeconds = diffMs / 1000;
   const totalDays = totalSeconds / (60 * 60 * 24);
   const totalHours = totalSeconds / (60 * 60);
+  const totalYears = totalDays / 365.25;
 
   return {
     daysLived: totalDays,
@@ -27,10 +24,10 @@ const calculateLifeStats = () => {
     heartbeats: totalSeconds * (AVG_HEART_RATE_BPM / 60),
     daysAsleep: totalDays * (HOURS_ASLEEP_PER_DAY / 24),
     blinks: totalDays * HOURS_AWAKE_PER_DAY * 60 * AVG_BLINKS_PER_MINUTE_AWAKE,
+    hitSongs: totalYears * AVG_HIT_SONGS_PER_YEAR,
   };
 };
 
-// --- Background Orbs Component ---
 const BackgroundOrbs = () => (
     <div className="absolute inset-0 z-0 pointer-events-none">
         {[...Array(15)].map((_, i) => (
@@ -56,28 +53,25 @@ const BackgroundOrbs = () => (
 );
 
 
-export default function LifeStats() {
-  // State to hold the live-updating stats
-  const [liveStats, setLiveStats] = useState(calculateLifeStats());
+export default function LifeStats({ birthDate = '2000-01-01', title = "A Lifetime of Moments" }) {
+  const [liveStats, setLiveStats] = useState(() => calculateLifeStats(birthDate));
 
   useEffect(() => {
-    // Set up an interval to update the stats every second
+    setLiveStats(calculateLifeStats(birthDate));
     const timerId = setInterval(() => {
-      setLiveStats(calculateLifeStats());
+      setLiveStats(calculateLifeStats(birthDate));
     }, 1000);
 
-    // Clean up the interval when the component unmounts to prevent memory leaks
     return () => clearInterval(timerId);
-  }, []);
+  }, [birthDate]);
 
-  // The array of stats to display, now uses the live state
   const stats = [
     { icon: Calendar, label: 'Days on Earth', value: liveStats.daysLived, decimals: 4 },
     { icon: Clock, label: 'Hours Lived', value: liveStats.hoursLived, decimals: 2 },
     { icon: Heart, label: 'Approx. Heartbeats', value: liveStats.heartbeats, decimals: 0 },
     { icon: Bed, label: 'Days Spent Sleeping', value: liveStats.daysAsleep, decimals: 4 },
     { icon: Eye, label: 'Approx. Blinks', value: liveStats.blinks, decimals: 0 },
-    { icon: Music, label: 'Taylor Swift Songs Released in Your Lifetime', value: TAYLOR_SWIFT_SONGS_RELEASED, decimals: 0, static: true },
+    { icon: Music, label: 'Hit Songs in Your Lifetime', value: liveStats.hitSongs, decimals: 0 },
   ];
   
   const containerVariants = {
@@ -107,7 +101,7 @@ export default function LifeStats() {
                 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-12 md:mb-16 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600"
                 style={{ filter: 'drop-shadow(0px 0px 10px rgba(147, 51, 234, 0.2))' }}
             >
-                A Lifetime of Moments
+                {title}
             </motion.h2>
 
             <motion.div
@@ -129,12 +123,10 @@ export default function LifeStats() {
                             {stat.label}
                         </h3>
                         <p className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600">
-                           {stat.static 
-                                ? stat.value.toLocaleString() 
-                                : stat.value.toLocaleString(undefined, {
-                                    minimumFractionDigits: stat.decimals,
-                                    maximumFractionDigits: stat.decimals,
-                                })
+                           {stat.value.toLocaleString(undefined, {
+                                minimumFractionDigits: stat.decimals,
+                                maximumFractionDigits: stat.decimals,
+                              })
                             }
                         </p>
                     </motion.div>

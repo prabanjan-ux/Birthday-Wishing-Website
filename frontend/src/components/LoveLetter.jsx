@@ -1,44 +1,41 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-const letterText = `Hi baby,
+// A generic placeholder letter for the template
+const placeholderLetter = `Hello there,
 
-Happy Birthday, Rasme! How are you? I hope you’re doing great. The last time I wished you on your birthday was on October 5th, 2024 (just kidding!). I remember I had my NPTEL exam that day, so my wish was very formal. But see me now—I’m building a website for my girl!
+This is a placeholder for your personal letter. You can pass any text you want into this component, and it will be displayed with a beautiful typing animation.
 
-Babe, how do you like the website? I’ve been working on it for the past three days whenever I got time. Today, I’ve been fully into it since morning, which is why I didn’t have time this afternoon. I was busy in the morning, like I told you. Maybe you missed me—but you should, if you want some real surprises.
+It's perfect for personal websites, special messages, or digital portfolios.
 
-Going through our journey, so much has happened in our lives. We became close, then stopped speaking, and now we’ve become even closer. Even if we stop talking for hours, we eventually speak again, and that’s how attached we are right now.
+Sincerely,
+The Developer`;
 
-Babe, thanks for being with me. Let’s live together without letting ego or any other issues disturb our bond. Of course, we’ll fight sometimes and roleplay in texts, but that’s part of us. I’ve always admired you, even from your past, and I want you to know that nothing should feel like a burden. I’m always here—we’ll figure everything out together. But for now, let’s focus on studying, because I believe if we have money and stability, nothing can stop us from being together in the future.
-
-Let’s understand each other more and grow together. Thank you for always being there—teaching me, trusting me, motivating me, and even annoying me sometimes! I’ll always love you. I don’t know if I can ever reach the level of love you have for me, but I love you so much.
-
-You’ll see a lot of happy birthday messages today, so once again, happy birthday to my elite princess! I know I can’t cover everything I want to say—maybe I’m missing some points due to distractions, like you texting me now, and yes, I’m just buttering you up with “lulla baa” words.
-
-Also, I’m not sure if I can complete and deploy the website by 12. There’s so much I wanted to do, but for now, I have some time constraints.
-
-Okay, byeee babyyy! See you on WhatsApp.
-
-Your Love`;
-
-export default function LoveLetter() {
+export default function LoveLetter({ 
+  title = "A Letter for You", 
+  letterContent = placeholderLetter 
+}) {
   const [displayedText, setDisplayedText] = useState('');
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     let currentIndex = 0;
+    // Reset state when the letter content changes
+    setDisplayedText('');
+    setIsComplete(false);
+
     const interval = setInterval(() => {
-      if (currentIndex <= letterText.length) {
-        setDisplayedText(letterText.slice(0, currentIndex));
+      if (currentIndex <= letterContent.length) {
+        setDisplayedText(letterContent.slice(0, currentIndex));
         currentIndex++;
       } else {
         setIsComplete(true);
         clearInterval(interval);
       }
-    }, 30);
+    }, 30); // Adjust typing speed here
 
     return () => clearInterval(interval);
-  }, []);
+  }, [letterContent]); // Rerun the effect if the letter content changes
 
   return (
     <section className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 py-12 sm:py-16 md:py-20 overflow-hidden">
@@ -49,7 +46,7 @@ export default function LoveLetter() {
           viewport={{ once: true }}
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-8 sm:mb-12 md:mb-16 text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600"
         >
-          A Letter From My Heart
+          {title}
         </motion.h2>
 
         <motion.div

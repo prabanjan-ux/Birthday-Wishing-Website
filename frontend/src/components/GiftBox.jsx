@@ -2,15 +2,17 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Gift, Heart } from 'lucide-react';
 
-// Import your video file.
-import birthdayVideo from './videos/pbjwishes.mp4'; // Make sure this path is correct
+// A placeholder video can be used, or just a string for the src
+const placeholderVideo = "/videos/placeholder.mp4"; 
 
-export default function GiftBox() {
+export default function GiftBox({
+  title = "A Special Surprise For You",
+  videoSrc = placeholderVideo,
+  endMessage = "Hope you enjoyed it!"
+}) {
   const [isOpen, setIsOpen] = useState(false);
-  // 1. Add new state to track if the video has finished
   const [isVideoFinished, setIsVideoFinished] = useState(false);
 
-  // 2. Create a handler function to be called when the video ends
   const handleVideoEnd = () => {
     setIsVideoFinished(true);
   };
@@ -24,7 +26,8 @@ export default function GiftBox() {
           viewport={{ once: true }}
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 sm:mb-12 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600"
         >
-          A Special Gift For You
+          {/* Use the title prop here */}
+          {title}
         </motion.h2>
 
         <div className="relative inline-block">
@@ -50,10 +53,7 @@ export default function GiftBox() {
                     <div className="absolute top-1/2 left-0 transform -translate-y-1/2 w-full h-8 sm:h-12 bg-gradient-to-r from-yellow-300 to-yellow-400" />
                     <motion.div
                       className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                      animate={{
-                        scale: [1, 1.2, 1],
-                        rotate: [0, 5, -5, 0],
-                      }}
+                      animate={{ scale: [1, 1.2, 1], rotate: [0, 5, -5, 0] }}
                       transition={{ repeat: Infinity, duration: 2 }}
                     >
                       <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-yellow-200 to-yellow-400 rounded-full shadow-lg" />
@@ -84,21 +84,19 @@ export default function GiftBox() {
                   className="bg-white rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-pink-100 via-purple-100 to-rose-100 opacity-50" />
-
                   <div className="relative z-10">
                     <video
-                      src={birthdayVideo}
+                      // Use the videoSrc prop here
+                      src={videoSrc}
                       className="w-full h-auto rounded-2xl shadow-lg"
                       controls
                       autoPlay
                       playsInline
-                      // 3. Remove loop and add the onEnded event handler
                       onEnded={handleVideoEnd}
                     >
                       Your browser does not support the video tag.
                     </video>
                     
-                    {/* 4. This part will appear when the video is finished */}
                     <AnimatePresence>
                       {isVideoFinished && (
                         <motion.div
@@ -109,14 +107,14 @@ export default function GiftBox() {
                         >
                           <Heart className="w-12 h-12 sm:w-16 sm:h-16 text-white mb-4" fill="white" />
                           <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
-                            Happy Birthday!
+                            {/* Use the endMessage prop here */}
+                            {endMessage}
                           </p>
                         </motion.div>
                       )}
                     </AnimatePresence>
                   </div>
                   
-                  {/* Heart confetti animation */}
                   {[...Array(20)].map((_, i) => (
                     <motion.div
                       key={i}
