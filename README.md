@@ -1,26 +1,26 @@
-# 💖 Interactive Birthday Wish Website
+# 🎂 Interactive Birthday Celebration Website
 
-A beautiful, single-page, fully animated **birthday wishing website** built with **React**, **Framer Motion**, and **Tailwind CSS** — designed to create a memorable and personalized experience for someone special.
+A vibrant, single-page, fully animated **birthday celebration website** built using **React**, **Framer Motion**, and **Tailwind CSS** — designed to create a joyful and interactive digital surprise for anyone’s special day.
 
-Every section is a unique, reusable component, making it incredibly easy to **customize, reuse, and deploy**.
+Every section is modular, customizable, and reusable — perfect for celebrating birthdays of friends, family, or colleagues in a unique and memorable way.
 
 ---
 
 ## ✨ Features
 
-This project includes **10 beautifully designed and animated components** that create a magical, seamless journey for the user:
+This project includes **10 beautifully crafted and animated sections** that together create a complete birthday experience:
 
-- 🔐 **Password Protected Entry:** A cute login page to keep the surprise safe.  
-- 🎉 **Landing Page:** A welcoming screen with confetti explosion effects.  
-- 💌 **Intro Page:** A personal introduction with floating heart animations.  
-- 📊 **Live Life Stats:** Displays fun live statistics (days lived, heartbeats, etc.) based on birth date.  
-- 🖼️ **Memory Gallery:** An interactive 3D image carousel (using Swiper.js) for cherished memories.  
-- 🚀 **Animated Timeline:** A dynamic vertical timeline of milestones and events.  
-- 🎡 **Spin Wheel:** A fun spinning wheel that reveals reasons why you love someone.  
-- 💭 **Floating Bubbles:** A mesmerizing floating animation with nicknames or sweet words.  
-- ✍️ **Animated Love Letter:** A personal letter with a typing animation effect.  
-- 🎁 **Gift Box Reveal:** A clickable gift box that opens to show a surprise video message.  
-- 🎆 **Fireworks Finale:** A grand full-screen fireworks display to end the experience.
+- 🔐 **Password Protected Entry** – Keeps the surprise hidden until it’s time to reveal.  
+- 🎉 **Landing Page** – A lively welcome screen with confetti and smooth animations.  
+- 💌 **Intro Section** – A personalized message or greeting with floating animations.  
+- 📊 **Fun Life Stats** – Displays interesting live stats like days lived, smiles shared, or moments celebrated.  
+- 🖼️ **Memory Gallery** – An interactive 3D carousel built with **Swiper.js** to showcase photos or memories.  
+- 🚀 **Timeline of Moments** – A dynamic vertical timeline displaying key milestones or events.  
+- 🎡 **Spin Wheel of Surprises** – A fun and random spin wheel revealing birthday messages or fun facts.  
+- 💭 **Floating Bubbles** – A mesmerizing animation with floating words, greetings, or names.  
+- ✍️ **Animated Message Page** – A typewriter-style section for a heartfelt or motivational message.  
+- 🎁 **Gift Box Reveal** – A clickable gift box that opens to show a surprise (image, message, or video).  
+- 🎆 **Fireworks Finale** – A grand finale featuring colorful fireworks to end the celebration with joy.
 
 ---
 
@@ -39,14 +39,12 @@ This project includes **10 beautifully designed and animated components** that c
 
 ## 🚀 Getting Started
 
-Follow these simple steps to run the project locally.
-
 ### **Prerequisites**
-- Node.js (v14 or higher)
+- [Node.js](https://nodejs.org/) (v14 or higher)
 - npm (Node Package Manager)
 
 ### **Installation**
 
-1. **Clone the repository:**
+1. **Clone this repository**
    ```bash
    git clone https://github.com/your-username/your-repository-name.git
