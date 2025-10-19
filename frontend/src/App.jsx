@@ -7,7 +7,7 @@ import MemoryGallery from "./components/MemoryGallery";
 import Timeline from "./components/TimeLine";
 import SpinWheel from "./components/SpinWheel";
 import FloatingBubbles from "./components/FloatingBubbles";
-import LoveLetter from "./components/LoveLetter";
+import Letter from "./components/Letter";
 import GiftBox from "./components/GiftBox";
 import Fireworks from "./components/Fireworks";
 
@@ -27,7 +27,7 @@ function App() {
       <div className="snap-start"><Timeline /></div>
       <div className="snap-start"><SpinWheel /></div>
       <div className="snap-start"><FloatingBubbles /></div>
-      <div className="snap-start"><LoveLetter /></div>
+      <div className="snap-start"><Letter /></div>
       <div className="snap-start"><GiftBox /></div>
       <div className="snap-start"><Fireworks /></div>
     </div>
